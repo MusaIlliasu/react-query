@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import axios from "axios";
 
 export interface Todo {
@@ -25,6 +25,7 @@ const useTodos = (query: QueryProps) => useQuery<Todo[], Error, Todo[]>({
     queryKey: ["todos", query],
     queryFn: () => fetchData({page: query.page, pageSize: query.pageSize}),
     staleTime: 1 * 60 * 1000, // 1m
+    placeholderData: keepPreviousData
 });
 
 export default useTodos;
